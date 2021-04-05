@@ -25,7 +25,7 @@ form.addEventListener('submit', e => {
     yearError.style.display = 'none';
     
     db.collection('spec').add({
-      brand: brandName,
+      brand: brandName.trim(),
       name: form.name.value,
       year: form.year.value,
       category: form.category.value,
@@ -54,12 +54,10 @@ form.addEventListener('submit', e => {
               }
             })
           }else{
-            if(doc.data().name === form.name.value){
-              db.collection('brand').add({
-                name: brandName,
-                id: doc.id
-              });
-            }
+            db.collection('brand').add({
+              name: brandName,
+              id: doc.id
+            });
           }
 
           db.collection('category').get().then(snapshot => snapshot.docs.forEach(category => {

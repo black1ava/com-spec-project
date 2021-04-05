@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+  <style>
+    @import url(index.css);
+  </style>
+  <script defer src="../store/index.js"></script>
+  <script defer src="index.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <h1>Computer Information</h1>
+  <form id="form">
+    <span style="font-size: 14px;">
+      *Please complete all the information bellow, or input <em>unknown</em> if you don't any of these information
+    </span>
+
+    <label for="brand">Brand: </label>
+    <input type="text" name="brand" id="brand" required>
+
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" required>
+
+    <span id="yearError">*Please input the correct information or if you don't about this information, please input unknown</span>
+    <label for="year">Year of creation: </label>
+    <input type="text" name="year" id="year" required>
+
+    <label for="category">Category</label>
+    <select name="category" id="category" style="height: 25px;">
+      <option value="Gaming">Gaming</option>
+      <option value="Design">Design</option>
+      <option value="Office">Office</option>
+    </select>
+
+    <label for="url">Image Url: </label>
+    <input type="text" id="url" name="url" required>
+
+    <label for="cpu">CPU: </label>
+    <input type="text" id="cpu" name="cpu" required>
+
+    <label for="max-speed">Maximum Boost Speed: </label>
+    <input type="text" id="max-speed" name="max-speed" required>
+
+    <label for="l3">L3 Cache</label>
+    <input type="text" name="l3" id="l3" required>
+
+    <label for="memory">Memory Type: </label>
+    <input type="text" id="memory" name="memory" required>
+
+    <label for="total-memory">Total Installed Memory: </label>
+    <input type="text" name="total-memory" id="total-memory" required>
+
+    <label for="graphic">Graphic Type: </label>
+    <input type="text" id="graphic" name="graphic" required>
+
+    <label for="gpu">GPU: </label>
+    <input type="text" name="gpu" id="gpu" required>
+
+    <label for="hdd">Hard Disk Drive: </label>
+    <input type="text" name="hdd" id="hdd" required>
+
+    <button id="button">Submit</button>
+  </form>
+</body>
+</html>

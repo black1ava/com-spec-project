@@ -1,0 +1,31 @@
+img{
+  max-height: 100px;
+}
+
+#container{
+  display: grid;
+  grid-template-rows: 1fr 1fr 4fr;
+  justify-items: center;
+  height: 90vh;
+}
+
+#logo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 90vw;
+}
+
+#catagory{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.cat-items{
+  font-size: 63px;
+  background: lightblue;
+  text-align: center;
+  border-radius: 25px;
+  padding: 10px;
+}

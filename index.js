@@ -1,7 +1,9 @@
-const imgs = document.querySelectorAll('.img');
+const logo = document.querySelector("#logo").childNodes;
+
+const imgs = Object.values(logo).filter(item => item.nodeType === 1);
 
 db.collection('brand').get().then(snapshot => snapshot.docs.forEach(doc => {
-  switch(doc.data().name.trim()){
+  switch(doc.data().name){
     case 'LENOVO':
       imgs[0].setAttribute('doc-id', doc.id);
       break;
@@ -22,4 +24,18 @@ db.collection('brand').get().then(snapshot => snapshot.docs.forEach(doc => {
   }
 }));
 
-imgs.forEach(img => img.addEventListener('click', () => console.log(img.getAttribute('doc-id'))));
+imgs.forEach(img => img.addEventListener('click', () => {
+  db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
+    if(doc.data().name === 'send to brand'){
+      const newUpdate = {};
+      newUpdate.name = doc.data().name;
+      newUpdate.id = img.getAttribute('doc-id');
+
+      db.collection('send').doc(doc.id).update(newUpdate);
+    }
+  }));
+
+  setTimeout(() => {
+    window.location = 'brand/index.html'
+  }, 500);
+}));

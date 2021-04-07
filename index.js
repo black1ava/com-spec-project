@@ -3,7 +3,7 @@ const logo = document.querySelector("#logo").childNodes;
 const imgs = Object.values(logo).filter(item => item.nodeType === 1);
 
 db.collection('brand').get().then(snapshot => snapshot.docs.forEach(doc => {
-  switch(doc.data().name){
+  switch(doc.data().name.trim()){
     case 'LENOVO':
       imgs[0].setAttribute('doc-id', doc.id);
       break;

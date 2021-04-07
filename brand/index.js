@@ -12,9 +12,37 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
         db.collection('spec').doc(id).get().then(data => {
           const img = document.createElement('img');
           img.src = data.data().url;
-          console.log(data.data().url);
+          // console.log(data.data().url);
           img.setAttribute('class', 'image');
-          display.appendChild(img);
+
+          const div = document.createElement('div');
+          const ul = document.createElement('ul');
+
+          div.setAttribute('class', 'container');
+
+          const list = data.data();
+          delete list.url;
+
+          const keys = Object.keys(list).map(key => key.replace('_', ' '));
+          const values = Object.values(list);
+
+          const listOfSpec = [];
+
+          for(let i = 0; i < keys.length; i++){
+            const list = { label: keys[i], data: values[i] };
+            listOfSpec.push(list);
+          }
+
+          listOfSpec.forEach(spec => {
+            const li = document.createElement('li');
+            li.innerHTML = `${spec.label}: ${spec.data}`;
+            ul.appendChild(li);
+          });
+
+          div.appendChild(img);
+          div.appendChild(ul);
+
+          display.appendChild(div);
         });
       });
     });

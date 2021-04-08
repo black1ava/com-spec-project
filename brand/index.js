@@ -17,11 +17,34 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
 
           const div = document.createElement('div');
           const ul = document.createElement('ul');
+          const h3 = document.createElement('h3');
+
+          h3.setAttribute('doc-id', data.id);
+
+          h3.addEventListener('click', () => {
+            
+            db.collection('send').get().then(snap => snap.docs.forEach(doc => {
+              console.log(h3.getAttribute('doc-id'));
+              if(doc.data().name === 'send to spec'){
+                const newUpdate = {
+                  name: doc.data().name,
+                  id: h3.getAttribute('doc-id')
+                };
+
+                db.collection('send').doc(doc.id).update(newUpdate);
+
+                setTimeout(() => window.location = '../spec/index.html', 500);
+              }
+            }));
+          });
 
           div.setAttribute('class', 'container');
 
           const list = data.data();
           delete list.url;
+
+          h3.innerHTML = list.name;
+          delete list.name;
 
           const keys = Object.keys(list).map(key => key.replace('_', ' '));
           const values = Object.values(list);
@@ -39,6 +62,7 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
             ul.appendChild(li);
           });
 
+          div.appendChild(h3);
           div.appendChild(img);
           div.appendChild(ul);
 

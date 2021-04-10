@@ -39,3 +39,69 @@ imgs.forEach(img => img.addEventListener('click', () => {
     window.location = 'brand/index.html'
   }, 500);
 }));
+
+const category = document.getElementsByClassName('cat-items');
+
+function transferToDom(doc, dom){
+  const random = [];
+  const data = doc.data();
+  delete data.name;
+
+  while(random.length < 3){
+    const index = Math.floor(Math.random() * Object.keys(data).length);
+    if(random.every(item => item.id !== index)){
+      random.push({
+        id: index,
+        value: Object.values(data)[index]
+      });
+    }
+  }
+
+  console.log(random);
+
+  Object.values(random).forEach(item => {
+    db.collection('spec').doc(item.value).get().then(snapshot => {
+      const img = document.createElement('img');
+      img.src = snapshot.data().url;
+      dom.appendChild(img);
+    });
+  });
+}
+
+db.collection('category').get().then(snapshot => snapshot.docs.forEach(doc => {
+  const random = []
+  switch(doc.data().name){
+    case 'Office':
+      transferToDom(doc, category[0]);
+      break;
+    case 'Gaming':
+      transferToDom(doc, category[1]);
+      break;
+    case 'Design':
+      transferToDom(doc, category[2]);
+      break;
+    default:
+      console.log('Category not found', doc.data().name);
+  }
+}));
+
+// Object.values(category).forEach(item => {
+
+//   item.addEventListener('click', function(){
+//     setTimeout(function(){
+
+//       db.collection('send').get().then(function(snapshot){
+//         snapshot.docs.forEach(function(doc){
+//           if(doc.data().name === 'send to category'){
+
+//             const data = doc.data();
+//             data['id'] = item.getAttribute('doc-id');
+//             db.collection('send').doc(doc.id).update(data);
+
+//             setTimeout(function(){ window.location = 'category/index.html' }, 400);
+//           }
+//         })
+//       });
+//     }, 200);
+//   });
+// });

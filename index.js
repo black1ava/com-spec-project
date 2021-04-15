@@ -57,15 +57,18 @@ function transferToDom(doc, dom){
     }
   }
 
-  console.log(random);
+  const imgContainer = document.createElement('div');
+  imgContainer.setAttribute('class', 'img-cont');
 
   Object.values(random).forEach(item => {
     db.collection('spec').doc(item.value).get().then(snapshot => {
       const img = document.createElement('img');
       img.src = snapshot.data().url;
-      dom.appendChild(img);
+      imgContainer.appendChild(img);
     });
   });
+
+  dom.appendChild(imgContainer);
 }
 
 db.collection('category').get().then(snapshot => snapshot.docs.forEach(doc => {
@@ -84,6 +87,11 @@ db.collection('category').get().then(snapshot => snapshot.docs.forEach(doc => {
       console.log('Category not found', doc.data().name);
   }
 }));
+
+const cat = document.getElementsByClassName('cat');
+Object.values(cat).forEach(c => {
+  c.addEventListener('click', () => console.log(c.parentElement.parentElement.getAttribute('id')));
+});
 
 // Object.values(category).forEach(item => {
 

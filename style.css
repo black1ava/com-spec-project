@@ -1,5 +1,5 @@
 img{
-  max-height: 100px;
+  height: 100px;
 }
 
 #container{
@@ -7,6 +7,7 @@ img{
   grid-template-rows: 1fr 1fr 4fr;
   justify-items: center;
   height: 90vh;
+  grid-gap: 30px;
 }
 
 #logo{
@@ -24,8 +25,31 @@ img{
 
 .cat-items{
   font-size: 63px;
-  background: lightblue;
   text-align: center;
   border-radius: 25px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.img-cont{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 90vw;
+}
+
+.img-cont img{
+  height: 250px;
+}
+
+.cat{
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+}
+
+.cat:hover{
+  color: rgb(35, 179, 236);
 }

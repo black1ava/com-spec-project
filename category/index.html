@@ -5,8 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>
+  <script defer src="../store/index.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    @import url(index.css);
+  </style>
 </head>
 <body>
-  <h1>Category page</h1>
+  <div id="container">
+    <h1 id="header"></h1>
+    <div id="items"></div>
+  </div>
 </body>
 </html>

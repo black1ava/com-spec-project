@@ -41,8 +41,10 @@ imgs.forEach(img => img.addEventListener('click', () => {
 }));
 
 const category = document.getElementsByClassName('cat-items');
+const cat = document.getElementsByClassName('cat');
 
-function transferToDom(doc, dom){
+
+function transferToDom(doc, dom, chi){
   const random = [];
   const data = doc.data();
   delete data.name;
@@ -56,6 +58,8 @@ function transferToDom(doc, dom){
       });
     }
   }
+
+  chi.setAttribute('doc-id', doc.id);
 
   const imgContainer = document.createElement('div');
   imgContainer.setAttribute('class', 'img-cont');
@@ -72,44 +76,42 @@ function transferToDom(doc, dom){
 }
 
 db.collection('category').get().then(snapshot => snapshot.docs.forEach(doc => {
-  const random = []
   switch(doc.data().name){
     case 'Office':
-      transferToDom(doc, category[0]);
+      transferToDom(doc, category[0], cat[0]);
       break;
     case 'Gaming':
-      transferToDom(doc, category[1]);
+      transferToDom(doc, category[1], cat[1]);
       break;
     case 'Design':
-      transferToDom(doc, category[2]);
+      transferToDom(doc, category[2], cat[2]);
       break;
     default:
       console.log('Category not found', doc.data().name);
   }
 }));
 
-const cat = document.getElementsByClassName('cat');
-Object.values(cat).forEach(c => {
-  c.addEventListener('click', () => console.log(c.parentElement.parentElement.getAttribute('id')));
-});
-
-// Object.values(category).forEach(item => {
-
-//   item.addEventListener('click', function(){
-//     setTimeout(function(){
-
-//       db.collection('send').get().then(function(snapshot){
-//         snapshot.docs.forEach(function(doc){
-//           if(doc.data().name === 'send to category'){
-
-//             const data = doc.data();
-//             data['id'] = item.getAttribute('doc-id');
-//             db.collection('send').doc(doc.id).update(data);
-
-//             setTimeout(function(){ window.location = 'category/index.html' }, 400);
-//           }
-//         })
-//       });
-//     }, 200);
-//   });
+// Object.values(cat).forEach(c => {
+//   c.addEventListener('click', () => console.log(c.getAttribute('doc-id')));
 // });
+
+Object.values(cat).forEach(item => {
+
+  item.addEventListener('click', function(){
+    setTimeout(function(){
+
+      db.collection('send').get().then(function(snapshot){
+        snapshot.docs.forEach(function(doc){
+          if(doc.data().name === 'send to category'){
+
+            const data = doc.data();
+            data['id'] = item.getAttribute('doc-id');
+            db.collection('send').doc(doc.id).update(data);
+
+            setTimeout(function(){ window.location = 'category/index.html' }, 400);
+          }
+        })
+      });
+    }, 200);
+  });
+});

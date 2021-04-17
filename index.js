@@ -91,10 +91,6 @@ db.collection('category').get().then(snapshot => snapshot.docs.forEach(doc => {
   }
 }));
 
-// Object.values(cat).forEach(c => {
-//   c.addEventListener('click', () => console.log(c.getAttribute('doc-id')));
-// });
-
 Object.values(cat).forEach(item => {
 
   item.addEventListener('click', function(){

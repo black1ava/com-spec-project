@@ -1,9 +1,11 @@
 const itemsName = document.querySelector('#name');
 const image = document.querySelector('#image');
 const list = document.querySelector('#list');
+const src =  document.querySelector('#src');
 
 db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
   if(doc.data().name === 'send to spec'){
+
     db.collection('spec').doc(doc.data().id).get().then(data => {
       itemsName.innerHTML = data.data().name;
 
@@ -30,5 +32,22 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
         list.appendChild(li);
       });
     });
+
+    switch(doc.data().src){
+      case 'category':
+        src.setAttribute('href', '../category/index.html');
+        break;
+  
+      case 'brand':
+        src.setAttribute('href', '../brand/index.html');
+        break;
+      
+      case 'home':
+        src.setAttribute('href', '../index.html');
+        break;
+        
+      default:
+        console.log(`${ doc.data().src } is undefined`);
+    }
   }
 }));

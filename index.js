@@ -68,6 +68,21 @@ function transferToDom(doc, dom, chi){
     db.collection('spec').doc(item.value).get().then(snapshot => {
       const img = document.createElement('img');
       img.src = snapshot.data().url;
+      img.setAttribute('doc-id', snapshot.id);
+
+      img.addEventListener('click', function(){
+        db.collection('send').get().then(ss => ss.docs.forEach(s => {
+          if(s.data().name === 'send to spec'){
+            const data = s.data();
+            data.id = img.getAttribute('doc-id');
+            data.src = 'home';
+
+            db.collection('send').doc(s.id).update(data)
+              .then(() => window.location = 'spec/index.html');
+          }
+        }));
+      });
+
       imgContainer.appendChild(img);
     });
   });

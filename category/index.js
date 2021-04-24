@@ -16,7 +16,26 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
           const h2 = document.createElement('h2');
           const ul = document.createElement('ul');
 
+
           h2.setAttribute('class', 'item-name');
+
+          h2.setAttribute('doc-id', s.id);
+
+          h2.addEventListener('click', function(){
+            sendToSpec();
+          });
+
+          function sendToSpec(){
+            db.collection('send').get().then(snps =>snps.forEach(snp => {
+              if(snp.data().name === 'send to spec'){
+                const data = snp.data();
+                data.id = h2.getAttribute('doc-id');
+                data.src = 'category';
+                db.collection('send').doc(snp.id).update(data)
+                  .then(function(){ window.location = '../spec/index.html'; });
+              }
+            }));
+          }
 
           div.setAttribute('class', 'item-cont');
           const data = s.data();
@@ -24,13 +43,15 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
 
           img.src = data.url;
 
+          img.addEventListener('click', function(){
+            sendToSpec();
+          });
+
           div.appendChild(h2);
           div.appendChild(img);
 
           delete data.name;
           delete data.url;
-
-          // console.log(data);
 
           const keys = Object.keys(data).map(d => d.replace('_', ' '));
 

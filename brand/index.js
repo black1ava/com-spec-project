@@ -12,8 +12,11 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
         db.collection('spec').doc(id).get().then(data => {
           const img = document.createElement('img');
           img.src = data.data().url;
-          // console.log(data.data().url);
           img.setAttribute('class', 'image');
+
+          img.addEventListener('click', function(){
+            sendToSpec();
+          });
 
           const div = document.createElement('div');
           const ul = document.createElement('ul');
@@ -22,21 +25,24 @@ db.collection('send').get().then(snapshot => snapshot.docs.forEach(doc => {
           h3.setAttribute('doc-id', data.id);
 
           h3.addEventListener('click', () => {
-            
+            sendToSpec();
+          });
+
+          function sendToSpec(){
             db.collection('send').get().then(snap => snap.docs.forEach(doc => {
               console.log(h3.getAttribute('doc-id'));
               if(doc.data().name === 'send to spec'){
                 const newUpdate = {
                   name: doc.data().name,
-                  id: h3.getAttribute('doc-id')
+                  id: h3.getAttribute('doc-id'),
+                  src: 'brand'
                 };
 
-                db.collection('send').doc(doc.id).update(newUpdate);
-
-                setTimeout(() => window.location = '../spec/index.html', 500);
+                db.collection('send').doc(doc.id).update(newUpdate)
+                  .then(function(){ window.location = '../spec/index.html' });
               }
             }));
-          });
+          }
 
           div.setAttribute('class', 'container');
 

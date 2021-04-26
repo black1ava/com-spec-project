@@ -1,6 +1,9 @@
 img{
   width: 300px;
+  cursor: pointer;
 }
+
+
 
 #items{
   display: flex;
@@ -17,4 +20,12 @@ img{
 .item-name{
   grid-column: 1/3;
   text-align: center;
+  cursor: pointer;
+  color: black;
+  transition: color 0.5s linear;
+}
+
+
+.item-name:hover{
+  color: lightblue;
 }

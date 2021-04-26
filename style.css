@@ -1,5 +1,6 @@
 img{
   height: 100px;
+  cursor: pointer;
 }
 
 #container{

@@ -39,7 +39,7 @@ class Computer{
 
   _gltfLoader = () => {
     const loader = new THREE.GLTFLoader();
-    loader.setPath('resource/');
+    loader.setPath('../resource/');
     loader.load('scene.gltf', gltf => {
       this.scene.add(gltf.scene);
       this.laptop = gltf.scene.children[0];

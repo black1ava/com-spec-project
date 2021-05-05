@@ -1,11 +1,12 @@
 #image{
-  width: 250px;
+  width: 350px;
 }
 
 #container{
   display: grid;
-  grid-template-columns: 250px 250px;
+  grid-template-columns:350px 350px;
   grid-template-rows: 50px 325px;
+  justify-content: center;
 }
 
 #name{
